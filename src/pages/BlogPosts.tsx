@@ -87,7 +87,7 @@ const BlogPostTemplate = ({ title, cat, date, readTime, children, relatedPosts }
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-stone rounded-full flex items-center justify-center font-bold text-xs text-secondary">MK</div>
                 <div>
-                  <div className="font-bold text-ink">Mannu Kumar</div>
+                  <div className="font-bold text-ink">Mannu Dhiman</div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-secondary">SEO Specialist</div>
                 </div>
               </div>

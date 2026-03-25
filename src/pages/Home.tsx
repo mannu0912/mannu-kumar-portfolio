@@ -3,7 +3,7 @@ import { ArrowRight, Star, ChevronDown, Plus, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { SEO } from "../components/SEO";
-
+import myPhoto from "../assets/images/mine.jpg";
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -91,7 +91,7 @@ const AuditForm = () => {
         type="submit"
         className="w-full bg-[#1D9E75] hover:bg-[#178A65] text-white font-bold py-[15px] rounded-lg transition-all mt-1"
       >
-        Get My Free SEO Audit →
+        Get Your Free SEO Audit →
       </button>
       <div className="flex items-center justify-center gap-1 text-[11px] text-[#AAAAAA] mt-4">
         <Lock size={10} /> No commitment · I respond within 24 hours
@@ -106,12 +106,12 @@ export default function Home() {
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Mannu Kumar",
+    "name": "Mannu Dhiman",
     "jobTitle": "SEO Specialist",
-    "url": "https://mannukumar.com",
+    "url": "https://mannudhiman.com",
     "sameAs": [
-      "https://www.linkedin.com/in/mannukumar",
-      "https://github.com/mannukumar"
+      "https://www.linkedin.com/in/mannudhiman",
+      "https://github.com/mannudhiman"
     ],
     "description": "Freelance SEO consultant specializing in eCommerce growth and technical SEO."
   };
@@ -140,14 +140,14 @@ export default function Home() {
             <h1 className="text-[36px] md:text-[52px] font-bold text-ink leading-[1.15] mb-5">
               Your Competitors<br />
               Are <span className="text-brand">Ranking.</span><br />
-              You Should Be Too.
+              You Should Too.
             </h1>
             <p className="text-[18px] text-muted leading-[1.6] mb-10 max-w-lg">
               I help ambitious businesses outrank their competitors, drive high-intent traffic, and scale revenue through data-driven SEO strategies.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-10 w-full sm:w-auto">
               <Link to="/contact/" className="btn-primary">
-                Get My Free SEO Audit
+                Get Your Free SEO Audit
               </Link>
               <Link to="/services/" className="btn-secondary">
                 View Case Studies
@@ -254,8 +254,12 @@ export default function Home() {
             className="w-full md:w-[45%] relative group"
           >
             <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-brand rounded-2xl -z-10 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-x-2 group-hover:translate-y-2"></div>
-            <div className="aspect-[340/420] w-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-[20px] overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
-              <span className="text-light-grey font-bold uppercase tracking-widest text-xs">Add Your Photo Here</span>
+            <div className="aspect-[340/420] w-full rounded-[20px] overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
+  <img 
+    src={myPhoto} 
+    alt="My Photo" 
+    className="w-full h-full object-cover"
+  />
             </div>
           </motion.div>
 
@@ -266,7 +270,7 @@ export default function Home() {
             className="w-full md:w-[55%] space-y-8"
           >
             <div className="flex flex-col items-start gap-4">
-              <span className="text-brand font-bold text-lg">Hi, I'm Mannu Kumar.</span>
+              <span className="text-brand font-bold text-lg">Hi, I'm Mannu Dhiman.</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight text-ink">
               I help eCommerce brands rank higher and grow faster with SEO that actually works.

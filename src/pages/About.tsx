@@ -14,7 +14,7 @@ export default function About() {
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Mannu Kumar",
+    "name": "Mannu Dhiman",
     "jobTitle": "SEO Specialist",
     "description": "SEO consultant with 7+ years of experience helping eCommerce brands across the globe."
   };
@@ -22,8 +22,8 @@ export default function About() {
   return (
     <div className="pt-20">
       <SEO 
-        title="About Mannu Kumar" 
-        description="Learn more about Mannu Kumar, an SEO specialist with over 7 years of experience in driving organic growth for eCommerce brands."
+        title="About Mannu Dhiman" 
+        description="Learn more about Mannu Dhiman, an SEO specialist with over 7 years of experience in driving organic growth for eCommerce brands."
         schema={personSchema}
       />
       {/* Hero */}

@@ -9,7 +9,7 @@ interface SEOProps {
 
 export const SEO = ({ title, description, type = "website", schema }: SEOProps) => {
   useEffect(() => {
-    document.title = `${title} | Mannu Kumar SEO`;
+    document.title = `${title} | Mannu Dhiman SEO`;
     
     // Update Meta Description
     let metaDesc = document.querySelector('meta[name="description"]');

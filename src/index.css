@@ -1,0 +1,141 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --color-brand: #1D9E75; /* Emerald Green */
+  --color-brand-dark: #178A65;
+  --color-badge-bg: #E8F5EF;
+  --color-surface: #FFFFFF;
+  --color-stone: #E8E8E4;
+  --color-ink: #1A1A1A;
+  --color-muted: #666666;
+  --color-light-grey: #AAAAAA;
+  --color-border: #E8E8E4;
+  --color-input-bg: #F8F8F6;
+  --color-input-border: #E0E0E0;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-ink font-sans antialiased;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #1D9E75 !important;
+    box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.12) !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-ink;
+  }
+
+  p {
+    @apply text-muted leading-relaxed;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand text-white font-bold px-7 py-3.5 rounded-[30px] transition-all duration-200 hover:bg-brand-dark inline-flex items-center gap-2 whitespace-nowrap;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-[1.5px] border-ink text-ink font-bold px-7 py-3.5 rounded-[30px] transition-all duration-200 hover:bg-ink hover:text-white;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-brand font-bold transition-all duration-200 hover:text-brand-dark flex items-center gap-2;
+  }
+
+  .section-badge {
+    @apply bg-badge-bg text-brand text-[11px] font-semibold tracking-[0.08em] uppercase px-3 py-1 rounded-[20px] inline-block mb-4;
+  }
+
+  .card-base {
+    @apply bg-white border border-border rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.05)] transition-all duration-250 hover:shadow-[0_8px_32px_rgba(0,0,0,0.10)] hover:-translate-y-1 hover:border-brand;
+  }
+
+  .stat-number {
+    @apply text-brand font-bold text-5xl md:text-6xl;
+  }
+
+  .stat-label {
+    @apply text-light-grey text-[11px] font-bold uppercase tracking-[0.05em];
+  }
+
+  .form-input {
+    @apply bg-input-bg border border-input-border rounded-[8px] px-3.5 py-3 text-sm text-ink placeholder-light-grey w-full transition-all;
+  }
+}
+
+.ticker-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding: 16px 0;
+  background: #E8E8E4;
+  display: block;
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: max-content;
+  animation: tickerMove 35s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.ticker-track span {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666666;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.ticker-dot {
+  color: #1D9E75 !important;
+  font-size: 10px;
+  display: inline-block;
+}
+
+@keyframes tickerMove {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-wrapper:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

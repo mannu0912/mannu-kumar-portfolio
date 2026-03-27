@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "../components/SEO";
+import aboutPhoto from "../assets/images/enjoying-vacation-in-malaysia.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -44,9 +45,13 @@ export default function About() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-20">
           <div className="w-full md:w-[45%] relative group">
             <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-brand rounded-2xl -z-10 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-x-2 group-hover:translate-y-2"></div>
-            <div className="aspect-[340/420] w-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-[20px] overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
-              <span className="text-light-grey font-bold uppercase tracking-widest text-xs">Add Your Photo Here</span>
-            </div>
+            <div className="aspect-[340/420] w-full rounded-[20px] overflow-hidden">
+  <img 
+    src={aboutPhoto} 
+    alt="Enjoying vacation in Malaysia" 
+    className="w-full h-full object-cover"
+  />
+</div>
           </div>
 
           <div className="w-full md:w-[55%] space-y-6 text-muted leading-relaxed text-lg">

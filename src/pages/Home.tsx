@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { SEO } from "../components/SEO";
 import myPhoto from "../assets/images/mine.jpg";
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -27,13 +29,29 @@ const CountUp = ({ value, suffix = "" }: { value: number; suffix?: string }) => 
 
   return <span>{displayValue}{suffix}</span>;
 };
-
 const AuditForm = () => {
   const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    if (!formRef.current) return;
+
+    emailjs
+      .sendForm(
+        "service_ggamtvm",     // replace
+        "template_2jzgxak",    // replace
+        formRef.current,
+        "QLJ1lR3j7DjKdqFNK"      // replace
+      )
+      .then(() => {
+        setSubmitted(true);
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Something went wrong. Please try again.");
+      });
   };
 
   if (submitted) {
@@ -54,48 +72,58 @@ const AuditForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
+
       <div className="grid grid-cols-2 gap-[10px]">
         <input 
           type="text" 
+          name="name"
           placeholder="First Name" 
           required 
-          className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA] w-full transition-all"
+          className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm w-full"
         />
         <input 
           type="text" 
           placeholder="Last Name" 
-          required 
-          className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA] w-full transition-all"
+          className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm w-full"
         />
       </div>
+
       <input 
         type="email" 
+        name="email"
         placeholder="Email Address" 
         required 
-        className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA] w-full transition-all"
+        className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm w-full"
       />
+
       <input 
         type="url" 
+        name="website"
         placeholder="Website URL" 
         required 
-        className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA] w-full transition-all"
+        className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm w-full"
       />
+
       <textarea 
+        name="message"
         placeholder="Tell me about your project" 
         rows={4}
         required
-        className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm text-[#1A1A1A] placeholder-[#AAAAAA] w-full transition-all resize-none"
+        className="bg-[#F8F8F6] border border-[#E0E0E0] rounded-lg px-[14px] py-3 text-sm w-full resize-none"
       ></textarea>
+
       <button 
         type="submit"
-        className="w-full bg-[#1D9E75] hover:bg-[#178A65] text-white font-bold py-[15px] rounded-lg transition-all mt-1"
+        className="w-full bg-[#1D9E75] hover:bg-[#178A65] text-white font-bold py-[15px] rounded-lg"
       >
         Get Your Free SEO Audit →
       </button>
+
       <div className="flex items-center justify-center gap-1 text-[11px] text-[#AAAAAA] mt-4">
         <Lock size={10} /> No commitment · I respond within 24 hours
       </div>
+
     </form>
   );
 };

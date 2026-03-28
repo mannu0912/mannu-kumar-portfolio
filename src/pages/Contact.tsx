@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, Mail, Linkedin, MapPin, CheckCircle2 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -11,10 +12,27 @@ const fadeInUp = {
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    if (!formRef.current) return;
+
+    emailjs
+      .sendForm(
+        "service_ggamtvm",
+        "template_2jzgxak",
+        formRef.current,
+        "QLJ1lR3j7DjKdqFNK"
+      )
+      .then(() => {
+        setSubmitted(true);
+      })
+      .catch((error) => {
+        console.error("EmailJS ERROR:", error);
+        alert(error.text || "Something went wrong");
+      });
   };
 
   return (
@@ -35,10 +53,13 @@ export default function Contact() {
       {/* Contact Content */}
       <section className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-20">
-          {/* Left Column */}
+
+          {/* LEFT SIDE */}
           <div className="w-full md:w-1/2 space-y-12">
             <div className="space-y-6">
-              <h2 className="text-3xl font-display font-bold text-ink">Ready to grow your organic traffic?</h2>
+              <h2 className="text-3xl font-display font-bold text-ink">
+                Ready to grow your organic traffic?
+              </h2>
               <p className="text-secondary text-lg leading-relaxed">
                 Whether you need a full SEO strategy, a technical audit, or ongoing monthly support — let's talk about what will move the needle for your business.
               </p>
@@ -49,7 +70,9 @@ export default function Contact() {
                 <span className="w-2 h-2 bg-brand rounded-full animate-pulse"></span>
                 Currently Accepting New Clients
               </div>
-              <p className="text-sm font-bold text-secondary italic">I respond within 24 hours</p>
+              <p className="text-sm font-bold text-secondary italic">
+                I respond within 24 hours
+              </p>
             </div>
 
             <div className="grid grid-cols-1 gap-6">
@@ -63,7 +86,9 @@ export default function Contact() {
                     {item.icon}
                   </div>
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-widest text-secondary mb-1">{item.title}</div>
+                    <div className="text-xs font-bold uppercase tracking-widest text-secondary mb-1">
+                      {item.title}
+                    </div>
                     <div className="font-bold text-ink">{item.value}</div>
                   </div>
                 </div>
@@ -71,7 +96,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right Column - Form */}
+          {/* RIGHT SIDE (FORM) */}
           <div className="w-full md:w-1/2">
             {submitted ? (
               <motion.div 
@@ -83,7 +108,9 @@ export default function Contact() {
                   <CheckCircle2 size={40} />
                 </div>
                 <h3 className="text-3xl font-display font-bold text-ink">Message Sent!</h3>
-                <p className="text-secondary">Thanks for reaching out! I will get back to you within 24 hours.</p>
+                <p className="text-secondary">
+                  Thanks for reaching out! I will get back to you within 24 hours.
+                </p>
                 <button 
                   onClick={() => setSubmitted(false)}
                   className="text-brand font-bold underline"
@@ -92,25 +119,43 @@ export default function Contact() {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 bg-stone p-10 md:p-12 rounded-[40px] border border-border shadow-sm">
+              <form 
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="space-y-6 bg-stone p-10 md:p-12 rounded-[40px] border border-border shadow-sm"
+              >
+
+                {/* Hidden tracking */}
+                <input type="hidden" name="form_type" value="Contact Page" />
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Full Name</label>
-                    <input type="text" required className="form-input w-full" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">
+                      Full Name
+                    </label>
+                    <input type="text" name="name" required className="form-input w-full" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Email Address</label>
-                    <input type="email" required className="form-input w-full" />
+                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">
+                      Email Address
+                    </label>
+                    <input type="email" name="email" required className="form-input w-full" />
                   </div>
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Website URL</label>
-                  <input type="url" required className="form-input w-full" />
+                  <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">
+                    Website URL
+                  </label>
+                  <input type="url" name="website" required className="form-input w-full" />
                 </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Service Interested In</label>
-                    <select className="form-input w-full appearance-none">
+                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">
+                      Service Interested In
+                    </label>
+                    <select name="service" className="form-input w-full appearance-none">
                       <option>Technical SEO</option>
                       <option>On-Page SEO</option>
                       <option>eCommerce SEO</option>
@@ -120,9 +165,12 @@ export default function Contact() {
                       <option>Other</option>
                     </select>
                   </div>
+
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Monthly Budget Range</label>
-                    <select className="form-input w-full appearance-none">
+                    <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">
+                      Monthly Budget Range
+                    </label>
+                    <select name="budget" className="form-input w-full appearance-none">
                       <option>Under $500</option>
                       <option>$500 to $1000</option>
                       <option>$1000 to $2000</option>
@@ -130,25 +178,33 @@ export default function Contact() {
                     </select>
                   </div>
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">Tell me about your project</label>
-                  <textarea rows={4} required className="form-input w-full resize-none"></textarea>
+                  <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">
+                    Tell me about your project
+                  </label>
+                  <textarea name="message" rows={4} required className="form-input w-full resize-none"></textarea>
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">How did you find me</label>
-                  <select className="form-input w-full appearance-none">
+                  <label className="text-xs font-bold uppercase tracking-widest text-secondary ml-1">
+                    How did you find me
+                  </label>
+                  <select name="source" className="form-input w-full appearance-none">
                     <option>Google</option>
                     <option>LinkedIn</option>
                     <option>Referral</option>
                     <option>Other</option>
                   </select>
                 </div>
+
                 <button type="submit" className="btn-primary w-full py-5 text-lg flex items-center justify-center gap-3">
                   Send Message <ArrowRight />
                 </button>
               </form>
             )}
           </div>
+
         </div>
       </section>
     </div>

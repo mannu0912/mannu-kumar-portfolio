@@ -27,21 +27,37 @@ const BlogPostTemplate = ({ title, cat, date, readTime, children, relatedPosts }
           <Link to="/blog/" className="inline-flex items-center gap-2 text-sm font-bold text-secondary hover:text-brand transition-colors">
             <ArrowLeft size={16} /> Back to Blog
           </Link>
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-brand bg-badge-bg px-3 py-1 rounded-full">{cat}</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-secondary">{date}</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-secondary">{readTime}</span>
-          </div>
+<div className="flex items-center flex-wrap gap-4 text-[13px] font-bold uppercase tracking-widest text-ink">
+  <span className="text-brand bg-badge-bg px-3 py-1 rounded-full text-[13px] font-bold uppercase tracking-widest">
+    {cat}
+  </span>
+  <span className="text-[13px] font-bold uppercase tracking-wider text-ink">{date}</span>
+  <span className="text-[13px] font-bold uppercase tracking-wider text-ink">{readTime}</span>
+  <span className="text-secondary/40 text-[13px]">|</span>
+  <span className="text-[13px] font-bold uppercase tracking-wider text-ink">
+    Written by{" "}
+    <Link to="/about/" className="text-brand hover:underline font-bold">
+      Mannu Dhiman
+    </Link>
+  </span>
+</div>
           <h1 className="text-4xl md:text-6xl font-display font-bold leading-tight text-ink">{title}</h1>
         </div>
       </section>
 
       {/* Featured Image */}
-      <section className="px-6 -mt-10">
-        <div className="max-w-4xl mx-auto aspect-[21/9] bg-gradient-to-br from-stone to-border rounded-[32px] overflow-hidden flex items-center justify-center">
-          <span className="text-secondary/40 font-bold uppercase tracking-widest text-xs">Featured Image Placeholder</span>
-        </div>
-      </section>
+{/* Featured Image */}
+<section className="px-6 -mt-12">
+  <div className="max-w-5xl mx-auto">
+    <div className="rounded-[28px] overflow-hidden shadow-lg">
+      <img
+        src="/src/assets/images/local-seo.png"
+        alt="Featured blog visual"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </div>
+</section>
 
       {/* Content */}
       <section className="py-20 px-6 bg-white">

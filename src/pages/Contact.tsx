@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowRight, Mail, Linkedin, MapPin, CheckCircle2 } from "lucide-react";
 import React, { useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -13,27 +12,34 @@ const fadeInUp = {
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const form = formRef.current;
+  if (!form) return;
 
-    if (!formRef.current) return;
+  const formData = new FormData(form);
 
-    emailjs
-      .sendForm(
-        "service_ggamtvm",
-        "template_2jzgxak",
-        formRef.current,
-        "QLJ1lR3j7DjKdqFNK"
-      )
-      .then(() => {
-        setSubmitted(true);
-      })
-      .catch((error) => {
-        console.error("EmailJS ERROR:", error);
-        alert(error.text || "Something went wrong");
-      });
-  };
+  try {
+    const res = await fetch("https://formspree.io/f/mpqorwnj", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (res.ok) {
+      setSubmitted(true);
+      form.reset();
+    } else {
+      throw new Error("Failed");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
+  }
+};
 
   return (
     <div className="pt-20">
@@ -126,7 +132,8 @@ export default function Contact() {
               >
 
                 {/* Hidden tracking */}
-                <input type="hidden" name="form_type" value="Contact Page" />
+                <input type="hidden" name="form_type" value="Contact Form" />
+                <input type="hidden" name="_subject" value="New Contact Lead 🚀" />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">

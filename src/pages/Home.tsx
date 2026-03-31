@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { SEO } from "../components/SEO";
 import myPhoto from "../assets/images/mine.jpg";
-import emailjs from "@emailjs/browser";
 import { useRef } from "react";
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -33,27 +32,34 @@ const AuditForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!formRef.current) return;
+  const form = formRef.current;
+  if (!form) return;
 
-    emailjs
-      .sendForm(
-        "service_ggamtvm",     // replace
-        "template_2jzgxak",    // replace
-        formRef.current,
-        "QLJ1lR3j7DjKdqFNK"      // replace
-      )
-      .then(() => {
-        setSubmitted(true);
-      })
-      .catch((error) => {
-        console.error(error);
-        alert("Something went wrong. Please try again.");
-      });
-  };
+  const formData = new FormData(form);
 
+  try {
+    const res = await fetch("https://formspree.io/f/mpqorwnj", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (res.ok) {
+      setSubmitted(true);
+      form.reset();
+    } else {
+      throw new Error("Failed");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
+  }
+};
   if (submitted) {
     return (
       <motion.div 
@@ -73,7 +79,7 @@ const AuditForm = () => {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-3">
-
+    <input type="hidden" name="source" value="Home Audit Form" />
       <div className="grid grid-cols-2 gap-[10px]">
         <input 
           type="text" 

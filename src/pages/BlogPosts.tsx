@@ -51,7 +51,7 @@ const BlogPostTemplate = ({ title, cat, date, readTime, children, relatedPosts }
   <div className="max-w-5xl mx-auto">
     <div className="rounded-[28px] overflow-hidden shadow-lg">
       <img
-        src="/src/assets/images/local-seo.png"
+        src="/images/local-seo.png"
         alt="Featured blog visual"
         className="w-full h-full object-cover"
       />
